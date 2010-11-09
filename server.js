@@ -61,7 +61,8 @@ io.on('connection', function(client){
 /////// ADD ALL YOUR ROUTES HERE  /////////
 
 server.get('/', function(req,res){
-  res.render('index.ejs', {
+  res.render('index.jade', {
+	layout: 'layout.ejs',
     locals : { 
               header: '#Header#'
              ,footer: '#Footer#'
