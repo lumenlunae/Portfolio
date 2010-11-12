@@ -1,0 +1,20 @@
+!!! 5
+  %div#howdy.red hello
+  %p
+    | what
+    | do
+    | you
+    | say
+  %div= userQuestion.bio
+  .right.column
+  //- nothing to see
+// nothing
+
+    .item{:id => "item#{item.id}"}= item.body
+  #content
+
+  .left.column
+    %h2 Welcome to our site!
+    %p= print_information
+  .right.column
+    = render :partial => "sidebar"

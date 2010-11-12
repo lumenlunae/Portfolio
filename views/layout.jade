@@ -1,0 +1,56 @@
+!!! 5
+html.no-js(lang= "en")
+  head
+    meta(charset="utf-8")
+		- var ifIE = "<!--[if IE]><![endif]-->"
+		!= ifIE
+		- var chromeFrame = "IE=edge,chrome=1"
+    meta(http-equiv="X-UA-Compatible", content=chromeFrame)
+    title
+    meta(name="description", content="")
+    meta(name="author", content="")
+		meta(name="viewport", content="width=device-width; initial-scale=1.0")
+
+		link(rel="shortcut icon", href="/favicon.ico")
+		link(rel="apple-touch-icon", href="/apple-touch-icon.png")
+
+		link(rel="stylesheet", href="css/style.css?v=1")
+		link(rel="stylesheet", href="css/portfolio.css?v=1")
+		link(rel="stylesheet", media="handheld", href="css/handheld.css?v=1")
+
+		script(src="js/modernizr-1.5.min.js")
+		script(src="http://use.typekit.com/tbz0rxp.js")
+    :javascript
+			| try { Typekit.load(); } catch (e) { }</script>
+	- var ifIE6 = '<!--[if IE 6 ]> <body class="ie6"> <![endif]-->'
+	- var ifOther = "<!--[if (gt IE 6)|!(IE)]><!--> <body> <!--<![endif]-->"
+	!= ifIE6
+	!= ifOther
+		header= header
+		ul#nav.tk-legitima
+			li skills
+			li work
+			li about
+		#name.tk-legitima
+			span#firstName Matthew
+			span#lastName Herz
+		#panel #{body}
+		footer#footer
+			div= footer
+			#canvas
+			#canvas2
+
+		script(src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js")
+		:javascript
+			| !window.jQuery && document.write(unescape('%3Cscript src="js/jquery-1.4.2.min.js"%3E%3C/script>%3E'));
+		script(src="js/plugins.js?v=1")
+		script(src="js/scripts.js?v=1")
+
+		- var ifIE6_2 = '<!--[if lt IE7 ]><script src="js/dd_belatedpng.js?v=1"></script><![endif]-->'
+		!= ifIE6_2
+
+		script(src="js/profiling/yahoo-profiling.min.js?v=1")
+		script(src="js/profiling/config.js?v=1")
+		- var ifLTIE9 = '<!--[if lt IE 9]><script type="text/javascript" src="Scripts/excanvas.js"></script><![endif]-->'
+		!= ifLTIE9
+    script(src="js/projection.js")
