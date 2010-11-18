@@ -18,17 +18,17 @@ var origPoints = [
 [-600, 140],
 [1700, 140]
 ];
-(function ($) {
+YUI().use("node", "event-resize", function(Y) {
 	var canvas = null, canvas2 = null, ctx = null, ctx2 = null;
 	var doSplitV = true, doFlatH = false;
 	var filling = 0, split = 100;
-	var loopx = 0;
+	var loopx = 0, loopx_old = 0;
+	var winWidth_old = points[1][0];
 	var styles = ["#111111", "#222222", "#aaaaaa", "#cccccc", "#aaaaaa"];
 	var pattern = [0.25, 0.25, 0.2, 0.1, 0.2];
-	$(document).ready(function () {
-		init();
-	//setInterval(repositionUp, 2000);
-	});
+	
+	Y.on("domready", init, Y);
+	
 	changing = function(a, b, c) {
 		doSplitV = a;
 		doFlatH = b;
@@ -109,13 +109,20 @@ var origPoints = [
     */
 	function init() {
 		// Position handles.
-		$(window).scroll(function(event) {
-			loopx = $(window).scrollLeft();
-			update();
+		Y.one(window).on("scroll", function(Y) {
+			loopx = this.get("scrollLeft");
+			if (loopx != loopx_old) {
+				update();
+				loopx_old = loopx;
+			}
 		});
-		$(window).resize(function(event) {
-			reCalPoints();
-			update();
+		Y.one(window).on("resize", function(Y) {
+			points[1][0] = this.get("winWidth");
+			if (points[1][0] != winWidth_old) {
+				winWidth_old = points[1][0];
+				reCalPoints();
+				update();
+			}
 		});
 		// Create canvas and load image.
 		canvas = createCanvas(0, 0, 1, 1);
@@ -127,15 +134,17 @@ var origPoints = [
 	function reCalPoints()
 	{
 		points = origPoints;
-		points[1][0] = $(window).width();
+		var winWidth = Y.one(window).get("winWidth")
+		points[1][0] = winWidth;
 		if (doFlatH) {
 			points[3][0] = points[1][0];
 			points[0][0] = points[2][0];
 			points[2][1] += 20;
 			points[3][1] += 20;
 		} else {
-			points[3][0] = points[1][0] + 600;
-			points[0][0] = points[1][0] - 300;
+			points[3][0] = winWidth + 600;
+			//points[0][0] = points[1][0] - 300;
+			points[0][0] = winWidth - 400;
 		}
 	}
 	/**
@@ -144,12 +153,12 @@ var origPoints = [
 	update = function () {
 		// Get extents.
 		var minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity;
-		$.each(points, function () {
-			minX = Math.min(minX, Math.floor(this[0]));
-			maxX = Math.max(maxX, Math.ceil(this[0]));
-			minY = Math.min(minY, Math.floor(this[1]));
-			maxY = Math.max(maxY, Math.ceil(this[1]));
-		});
+		for(var i = 0; i < points.length; i++) {
+			minX = Math.min(minX, Math.floor(points[i][0]));
+			maxX = Math.max(maxX, Math.ceil(points[i][0]));
+			minY = Math.min(minY, Math.floor(points[i][1]));
+			maxY = Math.max(maxY, Math.ceil(points[i][1]));
+		};
 
 		minX--;
 		minY--;
@@ -159,13 +168,14 @@ var origPoints = [
 		var height = maxY - minY;
 
 		// Reshape canvas.
-		canvas.style.left = minX + 'px';
-		canvas.style.top = minY + 'px';
-		canvas.width = width;
-		canvas.height = height;
+		canvas.setStyle('left', minX);
+		canvas.setStyle('top', minY);
+		canvas.set('width', width);
+		canvas.set('height', height);
 
 		// Set up basic drawing context.
-		ctx = canvas.getContext("2d");
+
+		ctx = Y.Node.getDOMNode(canvas).getContext("2d");
 		ctx.translate(-minX, -minY);
 		ctx.clearRect(minX, minY, width, height);
 		//ctx.strokeStyle = "rgb(220,0,100)";
@@ -200,7 +210,7 @@ var origPoints = [
 
 		}
 		if (doSplitV) {
-			var splitV = [0, 6, 12, 30, 56];
+			var splitV = [1, 6, 12, 30, 56];
 			ctx.strokeStyle = "rgba(2,2, 2, 0.4)";
 			for ( var i = 0; i < splitV.length; i++) {
 				ctx.beginPath();
@@ -233,13 +243,12 @@ var origPoints = [
 			canvas = document.createElement('canvas');
 			canvas.width = width;
 			canvas.height = height;
-			$('#canvas').append(canvas);
+			Y.one('#canvas').append(canvas);
 			canvas = G_vmlCanvasManager.initElement(canvas);
 		}
 		else {
-			canvas = $('<canvas width="' + width + '" height="' + height + '"></canvas>');
-			$('#canvas').append(canvas);
-			canvas = canvas[0];
+			canvas = Y.Node.create('<canvas width="' + width + '" height="' + height + '"></canvas>');
+			Y.one('#canvas').append(canvas);
 		}
 
 		return canvas;
@@ -251,16 +260,15 @@ var origPoints = [
 			canvas = document.createElement('canvas');
 			canvas.width = width;
 			canvas.height = height;
-			$('#canvas2').append(canvas);
+			Y.one('#canvas2').append(canvas);
 			canvas = G_vmlCanvasManager.initElement(canvas);
 		}
 		else {
-			canvas = $('<canvas width="' + width + '" height="' + height + '"></canvas>');
-			$('#canvas2').append(canvas);
-			canvas = canvas[0];
+			canvas = Y.Node.create('<canvas width="' + width + '" height="' + height + '"></canvas>');
+			Y.one('#canvas').append(canvas);
 		}
 
 		return canvas;
 	}
 
-})(jQuery);
+});

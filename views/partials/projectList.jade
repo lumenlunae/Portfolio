@@ -1,0 +1,7 @@
+- console.log(projectList)
+ul#projectList
+	- each work in projectList
+		li
+			h3
+				a(href=work.url)= work.title
+			div= work.project.type

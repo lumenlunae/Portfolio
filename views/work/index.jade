@@ -1,0 +1,25 @@
+div
+	:markdown
+		| # WORK
+		| among
+		| other things.
+= partial('projectList', { object: getAllProjects() })
+ul#showcase(style="display: none;")
+	- var i = 0;
+	- var class = "left";
+	- each work in works
+		- if (i % 3 == 0)
+			- class = "left";
+		- else if (i % 3 == 1)
+			- class = "mid";
+		- else
+			- class = "right"
+		- i++;
+		li(class=class)
+			a(href= work.url)
+				img(src= work.img)
+			h3
+				a(href= work.url)= work.title
+			div content
+div
+//- script(src="/js/showcase.js")
