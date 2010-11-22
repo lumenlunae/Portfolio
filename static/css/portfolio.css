@@ -16,6 +16,7 @@ body
 ul.tk-legitima
 {
 	position: fixed;
+	top: 40px;
 	right: 0;
 	font-size: 40px;
 	text-align: right;
@@ -24,11 +25,60 @@ ul.tk-legitima
 	z-index: 10;
 	list-style: none;
 }
-
+#nav li
+{
+}
+#nav a
+{
+	background: #222222;
+	color: #eeeeee;
+	text-decoration: none;
+	display: block;
+	margin: 16px 0;
+	padding: 4px 10px;
+	line-height: 1em;
+}
+#nav a:hover
+{
+	text-decoration: none;
+	padding: 4px 15px;
+	margin: 16px -5px;
+}
 #footer
 {
 	position: fixed;
 	bottom: -2px;
+}
+#contact
+{
+	margin-bottom: 40px;
+}
+
+#contact ul
+{
+	list-style: none;
+}
+
+#contact li
+{
+	display: inline;
+	margin-right: 30px;
+	font-size: 16px;
+	font-weight: bold;
+	padding: 10px;
+	background: #222222;
+	color: #eeeeee;
+}
+
+#contact a
+{
+	text-decoration: none;
+	color: #2B7BFF;
+}
+
+#contact span
+{
+	
 }
 #canvas
 {
@@ -42,8 +92,8 @@ ul.tk-legitima
 
 #name.tk-legitima
 {
-	font-size: 40px;
-	bottom: 24px;
+	font-size: 30px;
+	bottom: 26px;
 	right: 0px;
 	position: fixed;
 	text-shadow: 0 2px 1px #FFFFFF, 0 -1px 0 #666666;
@@ -65,7 +115,7 @@ ul.tk-legitima
 #panel
 {
 	/*width: 960px;*/
-	padding: 10px 250px 0 0;
+	padding: 40px 200px 0 40px;
 	margin: 0 auto;
 }
 
@@ -75,13 +125,13 @@ ul.tk-legitima
 	padding: 0 0 1.5em 0;
 }
 
-#showcase
+ul#showcase
 {
 	list-style: none;
 	margin-left: 0;
 }
 
-#showcase li
+ul#showcase li
 {
 	padding: 0px;
 	margin: 10px;
@@ -92,16 +142,16 @@ ul.tk-legitima
 	float: left;
 
 }
-#showcase li h3 a
+ul#showcase li h3 a
 {
 	color: inherit;
 	text-decoration: none;
 }
-#showcase li h3 a:hover
+ul#showcase li h3 a:hover
 {
 	text-decoration: underline;
 }
-#showcase li h3
+ul#showcase li h3
 {
 	
 	background: #222222;
@@ -116,18 +166,18 @@ ul.tk-legitima
 	color: #eeeeee;
 }
 
-#showcase li div
+ul#showcase li div
 {
 	background: #bcbcbc;
 	padding: 10px;
 }
-#showcase li img
+ul#showcase li img
 {
 	width: 300px;
 	margin: 0 auto;
 	padding-top: 40px;
 }
-#showcase li.clear
+.clear
 {
 	clear: left;
 }
@@ -135,10 +185,11 @@ ul.tk-legitima
 #projectList
 {
 	list-style: none;
-	margin: 0 auto;
-	padding-right: 400px;
+	float: left;
 	text-align: right;
 	width: 300px;
+	margin-left: 0;
+	margin-top: 10px;
 }
 #projectList li
 {
@@ -148,18 +199,20 @@ ul.tk-legitima
 	margin-bottom: 16px;
 	text-align: right;
 	width: 300px;
+	cursor: pointer;
 }
 
 #projectList h3
 {
 	background: #222222;
 	display: inline;
-	padding: 10px 10px 2px 30px;
+	padding: 10px 0 2px;
 	width: auto;
 }
 #projectList h3 a
 {
 	text-decoration: none;
+	padding: 10px 10px 2px 30px;
 	color: #eeeeee;
 }
 #projectList div
@@ -169,4 +222,81 @@ ul.tk-legitima
 	width: 270px;
 	padding: 4px 4px 0 0;
 	float: right;
+	font-size: 11px;
+	font-style: italic;
+}
+#projectList li.selected
+{
+	margin-right: -30px;
+	cursor: auto;
+	background: #cccccc;
+}
+#projectList li.selected h3
+{
+	background: #2b7bff;
+	margin: 0 -5px;
+	padding: 10px 15px 2px 35px;
+}
+#projectList li.selected div
+{
+	
+}
+
+#projectList li.highlighted
+{
+	background: #ff0000;
+	cursor: pointer;
+	margin-right: -20px;
+}
+#showcase
+{
+	padding: 0px;
+	margin: 0 10px 10px 10px;
+	background: url('/images/layout/showcase_shadow.png') bottom right no-repeat;
+	width: 300px;
+	padding-bottom: 10px;
+	float: right;
+	position: relative;
+}
+#showcase h2 a
+{
+	color: inherit;
+	text-decoration: none;
+}
+#showcase h2 a:hover
+{
+	text-decoration: underline;
+}
+#showcase h2
+{
+	background: #2B7BFF;
+	width: 280px;
+
+	font-size: 23px;
+	line-height: 15px;
+	padding: 10px;
+	margin-bottom: 4px;
+	color: #eeeeee;
+}
+#showcase h2 span
+{
+	float: right;
+	font-size: 10px;
+	padding-top: 2px;
+	color: #2B7BFF;
+}
+#showcase div
+{
+	background: #bcbcbc;
+	padding: 10px;
+}
+#showcase img
+{
+	width: 300px;
+	margin: 0 auto;
+}
+#content
+{
+	margin: 0 auto;
+	max-width: 850px;
 }

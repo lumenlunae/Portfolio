@@ -4,8 +4,9 @@ var connect = require('connect')
 , express = require('express')
 , sys = require('sys')
 , io = require('Socket.IO-node')
-, DBWorks = require('./models/works')
+, controllers = require(__dirname + "/controllers/index.js")
 , port = 80;
+
 //Setup Express
 var server = express.createServer();
 server.configure(function(){
@@ -17,15 +18,8 @@ server.configure(function(){
 	server.use(server.router);
 });
 
-server.dynamicHelpers({
-	getAllProjects: function(req) {
-		return function() {
-			DBWorks.find().all(function(work) {
-				return work;
-			});
-		}
-	}
-});
+// Setup DB
+global.DBWorks = require('./models/works');
 var header = "#Header";
 var footer = "#Footer";
 //setup the errors
@@ -91,47 +85,19 @@ server.get('/', function(req,res){
 			description: 'Page Description',
 			author: 'Your Name',
 			analyticssiteid: 'XXXXXXX'
-		}
-	});
-});
-
-server.get('/skills/:id?', function(req,res){
-	res.render('skills/index', {
-		layout: 'layout',
-		locals : {
-			header: req.params.id,
-			footer: footer
-		}
-	});
-});
-
-server.get('/work', function(req,res){
-	DBWorks.find().all(function(w) {
-		res.render('work/index', {
-			layout: 'layout',
-			locals : {
-				header: req.params.id,
-				works: w,
-				footer: footer
 			}
-		});
 	});
-	
 });
 
-server.get('/work/:name', function(req,res){
-	DBWorks.find().all(function(w) {
-		res.render('work/index', {
-			layout: 'layout',
-			locals : {
-				header: req.params.id,
-				works: w,
-				footer: footer
-			}
-		});
-	});
+server.get('/skills/:id?', controllers.s_index);
 
-});
+server.get('/work', controllers.w_index);
+
+server.get('/work/:name', controllers.w_show);
+
+server.get('/contact', controllers.c_index);
+server.post('/contact', controllers.c_send);
+
 //A Route for Creating a 500 Error (Useful to keep around)
 server.get('/500', function(req, res){
 	throw new Error('This is a 500 Error');

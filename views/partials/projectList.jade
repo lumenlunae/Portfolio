@@ -1,7 +1,7 @@
-- console.log(projectList)
 ul#projectList
-	- each work in projectList
-		li
+	- each work in works
+		- var selected = (project && project.name == work.name) ? "selected" : false;
+		li(class: selected)
 			h3
-				a(href=work.url)= work.title
-			div= work.project.type
+				a(href='/work/' + work.name)= work.title
+			div= work.type

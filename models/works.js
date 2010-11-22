@@ -5,7 +5,8 @@ var mongoose = require('mongoose/mongoose').Mongoose
 , db = mongoose.connect('mongodb://192.168.1.3:27017/portfolio');
 
 mongoose.model('work', {
-		properties: ['name', 'title', 'img', 'url', {'project': ['type', 'tech']} ]
+		properties: ['name', 'title', 'img', 'url', 'type', {'project': ['tech', 'preview', 'desc']} ],
+		indexes: ['name']
 });
 
 module.exports = db.model('work');
