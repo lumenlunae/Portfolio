@@ -1,0 +1,14 @@
+- if (project)
+	div#showcase
+		h2
+			a(href= project.url)= project.title
+			- if (project.project.preview)
+				span= project.project.preview
+			- else
+				span view #{project.type}
+		a(href = project.url)
+			img(src = project.img)
+		div
+			ul
+				- each item in project.project.tech
+					li= item
