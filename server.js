@@ -5,7 +5,7 @@ var connect = require('connect')
 , sys = require('sys')
 , io = require('Socket.IO-node')
 , controllers = require(__dirname + "/controllers/index.js")
-, port = 80;
+, port = 3000;
 
 //Setup Express
 var server = express.createServer();
@@ -53,7 +53,7 @@ server.error(function(err, req, res, next){
 		});
 	}
 });
-server.listen( port);
+server.listen(port);
 
 //Setup Socket.IO
 var io = io.listen(server);
